@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Scenarios
@@ -21,6 +22,7 @@ public class ScenarioWrapper
     public List<Scenarios> Scenarios;
 }
 
+
 public class ScenarioCall : MonoBehaviour
 {
     public List<Scenarios> allScenarios = new List<Scenarios>();
@@ -29,6 +31,7 @@ public class ScenarioCall : MonoBehaviour
     public TMP_Text answer2Txt;
     public TMP_Text answer3Txt;
     public TMP_Text answer4Txt;
+    public int money;
 
     public int sceneIndex = 0;
     public string correctAnswer;
@@ -117,6 +120,7 @@ public class ScenarioCall : MonoBehaviour
     {
         if (selectedAnswer == correctAnswer) {
             Debug.Log("correct");
+            money += 100;
             sceneIndex++;
             if (sceneIndex > allScenarios.Count)
             {
@@ -131,8 +135,7 @@ public class ScenarioCall : MonoBehaviour
             sceneIndex++;
             if (sceneIndex > allScenarios.Count)
             {
-                Debug.Log("thats all the questions");
-                sceneIndex = 0;
+                SceneManager.LoadSceneAsync("Game");
             }
             LoadScenrario();
         }

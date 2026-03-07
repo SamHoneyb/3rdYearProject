@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ServerHealth : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class ServerHealth : MonoBehaviour
         if(Health <= 0 )
         {
             Destroy(gameObject);
+            SceneManager.LoadSceneAsync("Questions");
         }
     }
 }

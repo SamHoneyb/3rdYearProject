@@ -25,6 +25,38 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if (Input.GetButtonDown("Heal Move"))
+        {
+            PlayerAttacks.HealthMove();
+
+        }
+
+        if (Input.GetButtonDown("Heavy Move"))
+        {
+            PlayerAttacks.HeavyAttack();
+
+        }
+
+        if (Input.GetButtonDown("Freeze Move"))
+        {
+            PlayerAttacks.FreezeMove();
+
+        }
+
+        if (Input.GetButtonDown("Earthquake Move"))
+        {
+            PlayerAttacks.EarthQuakeMove();
+
+        }
+
+        if (Input.GetButtonDown("Ranged Move"))
+        {
+            PlayerAttacks.RangedMove();
+
+        }
+
+
+
         float Horizontal = Input.GetAxis("Horizontal");
         float Vertical = Input.GetAxis("Vertical");
 

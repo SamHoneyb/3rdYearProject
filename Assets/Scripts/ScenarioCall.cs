@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 [Serializable]
 public class Scenarios
@@ -15,6 +16,8 @@ public class Scenarios
     public string Incorrect1;
     public string Incorrect2;
     public string Incorrect3;
+    public string Reason;
+    public string Summary;
 }
 [Serializable]
 public class ScenarioWrapper
@@ -31,7 +34,13 @@ public class ScenarioCall : MonoBehaviour
     public TMP_Text answer2Txt;
     public TMP_Text answer3Txt;
     public TMP_Text answer4Txt;
+    public GameObject Answer1Btn;
+    public GameObject Answer2Btn;
+    public GameObject Answer3Btn;
+    public GameObject Answer4Btn;
     public int money;
+
+    public Scenarios currentScenario;
 
     public int sceneIndex = 0;
     public string correctAnswer;
@@ -70,7 +79,7 @@ public class ScenarioCall : MonoBehaviour
     }
 
     public void LoadScenrario() {
-        var currentScenario = allScenarios[sceneIndex];
+        currentScenario = allScenarios[sceneIndex];
         correctAnswer = currentScenario.Answer;
 
         List<String> randomiseButtons = new List<String>() {
@@ -101,44 +110,142 @@ public class ScenarioCall : MonoBehaviour
 
     public void Button1Pressed()
     {
-        answerCheck(answer1Txt.text);
+        StartCoroutine(answerCheck(answer1Txt.text));
     }
     public void Button2Pressed()
     {
-        answerCheck(answer2Txt.text);
+        StartCoroutine(answerCheck(answer2Txt.text));
     }
     public void Button3Pressed()
     {
-        answerCheck(answer3Txt.text);
+        StartCoroutine(answerCheck(answer3Txt.text));
     }
     public void Button4Pressed()
     {
-        answerCheck(answer4Txt.text);
+        StartCoroutine(answerCheck(answer4Txt.text));
     }
 
-    public void answerCheck(string selectedAnswer)
+    IEnumerator answerCheck(string selectedAnswer)
     {
         if (selectedAnswer == correctAnswer) {
             Debug.Log("correct");
+            questionpnlTxt.text = currentScenario.Reason;
+            questionpnlTxt.color = Color.green;
+            LeaveCorrectButton();
+            yield return new WaitForSeconds(6f);
+            ReturnCorrectButton();
+            questionpnlTxt.color = Color.white;
             money += 100;
             sceneIndex++;
-            if (sceneIndex > allScenarios.Count)
+            if (sceneIndex >= allScenarios.Count)
             {
                 Debug.Log("thats all the questions");
                 sceneIndex = 0;
+                SceneManager.LoadSceneAsync("Shop");
             }
             LoadScenrario();
         }
         else
         {
             Debug.Log("incorrect");
+            questionpnlTxt.text = currentScenario.Reason;
+            questionpnlTxt.color = Color.red;
+            LeaveCorrectButton();
+            yield return new WaitForSeconds(6f);
+            ReturnCorrectButton();
+            questionpnlTxt.color = Color.white;
             sceneIndex++;
-            if (sceneIndex > allScenarios.Count)
+            if (sceneIndex >= allScenarios.Count)
             {
-                SceneManager.LoadSceneAsync("Game");
+                SceneManager.LoadSceneAsync("Shop");
             }
             LoadScenrario();
         }
+    }
+
+    private void LeaveCorrectButton()
+    {
+        if(answer1Txt.text != correctAnswer)
+        { 
+            Answer1Btn.SetActive(false);
+        }
+        else
+        {
+            answer1Txt.color = Color.green;
+        }
+
+        if (answer2Txt.text != correctAnswer)
+        {
+            Answer2Btn.SetActive(false);
+        }
+        else
+        {
+            answer2Txt.color = Color.green;
+        }
+
+        if (answer3Txt.text != correctAnswer)
+        {
+            Answer3Btn.SetActive(false);
+        }
+        else
+        {
+            answer3Txt.color = Color.green;
+        }
+
+        if (answer4Txt.text != correctAnswer)
+        {
+            Answer4Btn.SetActive(false);
+        }
+        else
+        {
+            answer4Txt.color = Color.green;
+        }
+    }
+
+    private void ReturnCorrectButton()
+    {
+        if (answer1Txt.text != correctAnswer)
+        {
+            Answer1Btn.SetActive(true);
+        }
+        else
+        {
+            answer1Txt.color = Color.white;
+        }
+
+        if (answer2Txt.text != correctAnswer)
+        {
+            Answer2Btn.SetActive(true);
+        }
+        else
+        {
+            answer2Txt.color = Color.white;
+        }
+
+        if (answer3Txt.text != correctAnswer)
+        {
+            Answer3Btn.SetActive(true);
+        }
+        else
+        {
+            answer3Txt.color = Color.white;
+        }
+
+        if (answer4Txt.text != correctAnswer)
+        {
+            Answer4Btn.SetActive(true);
+        }
+        else
+        {
+            answer4Txt.color = Color.white;
+        }
+    }
+
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
 

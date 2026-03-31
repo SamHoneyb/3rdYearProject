@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     public List<Enemy> enemies = new List<Enemy>();
     public List<GameObject> spawnableEnemies = new List<GameObject>();
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     public int currentWave;
     public int waveValue;
@@ -42,7 +43,8 @@ public class EnemySpawner : MonoBehaviour
         for(int i = 0; i < spawnableEnemies.Count; i++)
         {
             Transform randomSpawn = spawnPoint[rnd.Next(0, spawnPoint.Length)];
-            Instantiate(spawnableEnemies[i], randomSpawn.position, randomSpawn.rotation);
+            GameObject newEnemy = Instantiate(spawnableEnemies[i], randomSpawn.position, randomSpawn.rotation);
+            spawnedEnemies.Add(newEnemy); 
 
             yield return new WaitForSeconds(spawnDelay);
         }

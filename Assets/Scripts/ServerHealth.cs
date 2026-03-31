@@ -4,11 +4,14 @@ using UnityEngine.SceneManagement;
 public class ServerHealth : MonoBehaviour
 {
     public int Health;
+    public int maxHealth = 25;
+    public HealthBar healthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Health = 10;
+        SetHealth();
+        healthBar.MaxHealthBar(maxHealth);
     }
 
     // Update is called once per frame
@@ -17,9 +20,15 @@ public class ServerHealth : MonoBehaviour
         
     }
 
+    public void SetHealth()
+    {
+        Health = maxHealth;
+    }
+
     public void TakeDamage(int ammount)
     {
         Health -= ammount;
+        healthBar.ChangeHealthBar(Health);
 
         if(Health <= 0 )
         {

@@ -176,11 +176,12 @@ public class ScenarioCall : MonoBehaviour
         if(answer1Txt.text != correctAnswer)
         { 
             Answer1Btn.SetActive(false);
-            Answer1Btn.GetComponent<Button>().interactable = false;
+            
         }
         else
         {
             answer1Txt.color = Color.green;
+            Answer1Btn.GetComponent<Button>().interactable = false;
         }
 
         if (answer2Txt.text != correctAnswer)
@@ -225,6 +226,9 @@ public class ScenarioCall : MonoBehaviour
         {
             answer1Txt.color = Color.white;
             Answer1Btn.GetComponent<Button>().interactable = true;
+            Answer2Btn.GetComponent<Button>().interactable = true;
+            Answer3Btn.GetComponent<Button>().interactable = true;
+            Answer4Btn.GetComponent<Button>().interactable = true;
         }
 
         if (answer2Txt.text != correctAnswer)
@@ -234,7 +238,10 @@ public class ScenarioCall : MonoBehaviour
         else
         {
             answer2Txt.color = Color.white;
+            Answer1Btn.GetComponent<Button>().interactable = true;
             Answer2Btn.GetComponent<Button>().interactable = true;
+            Answer3Btn.GetComponent<Button>().interactable = true;
+            Answer4Btn.GetComponent<Button>().interactable = true;
         }
 
         if (answer3Txt.text != correctAnswer)
@@ -244,7 +251,10 @@ public class ScenarioCall : MonoBehaviour
         else
         {
             answer3Txt.color = Color.white;
+            Answer1Btn.GetComponent<Button>().interactable = true;
+            Answer2Btn.GetComponent<Button>().interactable = true;
             Answer3Btn.GetComponent<Button>().interactable = true;
+            Answer4Btn.GetComponent<Button>().interactable = true;
         }
 
         if (answer4Txt.text != correctAnswer)
@@ -254,6 +264,9 @@ public class ScenarioCall : MonoBehaviour
         else
         {
             answer4Txt.color = Color.white;
+            Answer1Btn.GetComponent<Button>().interactable = true;
+            Answer2Btn.GetComponent<Button>().interactable = true;
+            Answer3Btn.GetComponent<Button>().interactable = true;
             Answer4Btn.GetComponent<Button>().interactable = true;
         }
     }

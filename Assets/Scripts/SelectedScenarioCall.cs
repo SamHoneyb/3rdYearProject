@@ -164,6 +164,7 @@ public class SelectedScenarioCall : MonoBehaviour
         {
             answer1Txt.color = Color.green;
             Answer1Btn.GetComponent<Button>().interactable = false;
+
         }
 
         if (answer2Txt.text != correctAnswer)
@@ -174,6 +175,7 @@ public class SelectedScenarioCall : MonoBehaviour
         {
             answer2Txt.color = Color.green;
             Answer2Btn.GetComponent<Button>().interactable = false;
+
         }
 
         if (answer3Txt.text != correctAnswer)
@@ -184,6 +186,7 @@ public class SelectedScenarioCall : MonoBehaviour
         {
             answer3Txt.color = Color.green;
             Answer3Btn.GetComponent<Button>().interactable = false;
+
         }
 
         if (answer4Txt.text != correctAnswer)

@@ -3,7 +3,7 @@ using TMPro;
 
 public class AbilityCountHUD : MonoBehaviour
 {
-
+    //sets the buttons and assets in unity as variables
     public TMP_Text HeavyMoveOwnedTxt;
     public TMP_Text HealthMoveOwnedTxt;
     public TMP_Text FreezeMoveOwnedTxt;
@@ -15,16 +15,17 @@ public class AbilityCountHUD : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //finds the shop object
         Shop = FindObjectOfType<Shop>();
         SetUIVariables();
     }
 
-    // Update is called once per frame
     void Update()
     {
         SetUIVariables();
     }
 
+    //sets all the variables
     public void SetUIVariables()
     {
         SetFreezeOwned();
@@ -34,6 +35,7 @@ public class AbilityCountHUD : MonoBehaviour
         SetHeavyOwned();
     }
 
+    //sets the HUDS ability numbers
     public void SetHeavyOwned()
     {
         HeavyMoveOwnedTxt.text = Shop.heavyOwned.ToString();

@@ -9,16 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public Animator Animator;
     public PlayerAttacks PlayerAttacks;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
 
     // Update is called once per frame
     void Update()
     {
+        //uses the players moves on a button press
         if (Input.GetButtonDown("Default Attack"))
         {
             PlayerAttacks.DefaultAttack();
@@ -56,15 +52,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
         float Horizontal = Input.GetAxis("Horizontal");
         float Vertical = Input.GetAxis("Vertical");
 
+        //flips the player based on direction
         if(Horizontal > 0 && transform.localScale.x < 0 || Horizontal < 0 && transform.localScale.x > 0)
         {
             FlipPlayer();
         }
 
+        //moves the player
         rigidBody.linearVelocity = new Vector3(Horizontal, Vertical) * Speed;
 
         Animator.SetFloat("Horizontal", Mathf.Abs(Horizontal));
@@ -72,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
-
+    //actually flips the player
     void FlipPlayer()
     {
         Vector3 flipScale = transform.localScale;

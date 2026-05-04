@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ServerHealth : MonoBehaviour
 {
+    //sets variables
     public int Health;
     public int maxHealth = 25;
     public HealthBar healthBar;
@@ -14,17 +15,13 @@ public class ServerHealth : MonoBehaviour
         healthBar.MaxHealthBar(maxHealth);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //sets server to max health
     public void SetHealth()
     {
         Health = maxHealth;
     }
 
+    //takes damage from the server when its hit
     public void TakeDamage(int ammount)
     {
         Health -= ammount;
@@ -33,7 +30,7 @@ public class ServerHealth : MonoBehaviour
         if(Health <= 0 )
         {
             Destroy(gameObject);
-            SceneManager.LoadSceneAsync("Questions");
+            SceneManager.LoadSceneAsync("GameOver");
         }
     }
 }

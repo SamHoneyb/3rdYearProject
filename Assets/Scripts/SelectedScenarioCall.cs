@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine.UI;
 
 [Serializable]
-public class Scenarios
+public class SelectedScenarios
 {
     public int ScenarioID;
     public string Scenario;
@@ -22,15 +22,15 @@ public class Scenarios
 }
 
 [Serializable]
-public class ScenarioWrapper
+public class SelectedScenarioWrapper
 {
-    public List<Scenarios> Scenarios;
+    public List<SelectedScenarios> SelectedScenarios;
 }
 
 
-public class ScenarioCall : MonoBehaviour
+public class SelectedScenarioCall : MonoBehaviour
 {
-    public List<Scenarios> allScenarios = new List<Scenarios>();
+    public List<SelectedScenarios> allSelectedScenarios = new List<SelectedScenarios>();
     public TMP_Text questionpnlTxt;
     public TMP_Text answer1Txt;
     public TMP_Text answer2Txt;
@@ -40,19 +40,18 @@ public class ScenarioCall : MonoBehaviour
     public GameObject Answer2Btn;
     public GameObject Answer3Btn;
     public GameObject Answer4Btn;
-    public int money;
 
-    public Scenarios currentScenario;
-
-    public int sceneIndex = 0;
+    public PopulateDropDown PopulateDropDown;
+    public SelectedScenarios currentScenario;
     public string correctAnswer;
 
 
     //sets API to be called
     private string scenarioAPI = "http://127.0.0.1:5000/Scenarios";
-
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        PopulateDropDown = FindObjectOfType<PopulateDropDown>();
         StartCoroutine(GetScenarios());
     }
 
@@ -73,17 +72,17 @@ public class ScenarioCall : MonoBehaviour
             string response = www.downloadHandler.text;
             Debug.Log(response);
             //removes noise from the reponse
-            string fixedResponse = "{\"Scenarios\":" + response + "}";
+            string fixedResponse = "{\"SelectedScenarios\":" + response + "}";
 
-            ScenarioWrapper wrapper = JsonUtility.FromJson<ScenarioWrapper>(fixedResponse);
-            allScenarios = wrapper.Scenarios;
+            SelectedScenarioWrapper wrapper = JsonUtility.FromJson<SelectedScenarioWrapper>(fixedResponse);
+            allSelectedScenarios = wrapper.SelectedScenarios;
 
             LoadScenrario();
         }
     }
 
     public void LoadScenrario() {
-        currentScenario = allScenarios[sceneIndex];
+        currentScenario = allSelectedScenarios[PopulateDropDown.selctedScenario];
         correctAnswer = currentScenario.Answer;
 
         List<String> randomiseButtons = new List<String>() {
@@ -140,17 +139,7 @@ public class ScenarioCall : MonoBehaviour
             questionpnlTxt.color = Color.green;
             LeaveCorrectButton();
             yield return new WaitForSeconds(6f);
-            ReturnCorrectButton();
-            questionpnlTxt.color = Color.white;
-            money += 100;
-            sceneIndex++;
-            if (sceneIndex >= allScenarios.Count)
-            {
-                Debug.Log("thats all the questions");
-                sceneIndex = 0;
-                SceneManager.LoadSceneAsync("Shop");
-            }
-            LoadScenrario();
+            LoadSelectScreen();
         }
         else
         {
@@ -159,14 +148,8 @@ public class ScenarioCall : MonoBehaviour
             questionpnlTxt.color = Color.red;
             LeaveCorrectButton();
             yield return new WaitForSeconds(6f);
-            ReturnCorrectButton();
-            questionpnlTxt.color = Color.white;
-            sceneIndex++;
-            if (sceneIndex >= allScenarios.Count)
-            {
-                SceneManager.LoadSceneAsync("Shop");
-            }
-            LoadScenrario();
+            LoadSelectScreen();
+
         }
     }
 
@@ -176,11 +159,11 @@ public class ScenarioCall : MonoBehaviour
         if(answer1Txt.text != correctAnswer)
         { 
             Answer1Btn.SetActive(false);
-            Answer1Btn.GetComponent<Button>().interactable = false;
         }
         else
         {
             answer1Txt.color = Color.green;
+            Answer1Btn.GetComponent<Button>().interactable = false;
         }
 
         if (answer2Txt.text != correctAnswer)
@@ -210,59 +193,14 @@ public class ScenarioCall : MonoBehaviour
         else
         {
             answer4Txt.color = Color.green;
-            Answer4Btn.GetComponent<Button>().interactable = false;  
+            Answer4Btn.GetComponent<Button>().interactable = false;
         }
     }
-
-    //brings back the removed buttons
-    private void ReturnCorrectButton()
+    
+    //takes the player back to the home screen
+    public void LoadSelectScreen()
     {
-        if (answer1Txt.text != correctAnswer)
-        {
-            Answer1Btn.SetActive(true);
-        }
-        else
-        {
-            answer1Txt.color = Color.white;
-            Answer1Btn.GetComponent<Button>().interactable = true;
-        }
-
-        if (answer2Txt.text != correctAnswer)
-        {
-            Answer2Btn.SetActive(true);
-        }
-        else
-        {
-            answer2Txt.color = Color.white;
-            Answer2Btn.GetComponent<Button>().interactable = true;
-        }
-
-        if (answer3Txt.text != correctAnswer)
-        {
-            Answer3Btn.SetActive(true);
-        }
-        else
-        {
-            answer3Txt.color = Color.white;
-            Answer3Btn.GetComponent<Button>().interactable = true;
-        }
-
-        if (answer4Txt.text != correctAnswer)
-        {
-            Answer4Btn.SetActive(true);
-        }
-        else
-        {
-            answer4Txt.color = Color.white;
-            Answer4Btn.GetComponent<Button>().interactable = true;
-        }
-    }
-
-
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
+        SceneManager.LoadSceneAsync("HomeScreen");
     }
 
 

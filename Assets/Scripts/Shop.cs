@@ -47,7 +47,7 @@ public class Shop : MonoBehaviour
         HeavyCostTxt.text = "Cost:  " + heavyCost.ToString();
     }
 
-
+    //purchases the ability and adds one to the players count 
     public void PurchaseHealthAbility()
     {
         if (scenarioCall.money < healthCost)
@@ -64,7 +64,7 @@ public class Shop : MonoBehaviour
         }
 
     }
-
+    //purchases the ability and adds one to the players count 
     public void PurchaseHeavyAbility()
     {
         if (scenarioCall.money < heavyCost)
@@ -81,6 +81,7 @@ public class Shop : MonoBehaviour
         }
 
     }
+    //purchases the ability and adds one to the players count 
     public void PurchaseFreezeAbility()
     {
         if (scenarioCall.money < freezeCost)
@@ -98,6 +99,7 @@ public class Shop : MonoBehaviour
 
     }
 
+    //purchases the ability and adds one to the players count 
     public void PurchaseQuakeAbility()
     {
         if (scenarioCall.money < quakeCost)
@@ -115,6 +117,7 @@ public class Shop : MonoBehaviour
 
     }
 
+    //purchases the ability and adds one to the players count 
     public void PurchaseRangeAbility()
     {
         if (scenarioCall.money < rangeCost)
@@ -132,7 +135,7 @@ public class Shop : MonoBehaviour
 
     }
 
-
+    //checks if the player has enough money to buy the ability
     void CheckMoney()
     {
         if(scenarioCall.money == 0)

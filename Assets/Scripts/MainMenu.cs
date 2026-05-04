@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    //navigation buttons for the main menu
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync("Questions");

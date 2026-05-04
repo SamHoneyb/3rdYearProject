@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AbilityExplanation.unity
     guid: 9f43b6e0c195c6445b0fa75d16f37c6c
+  - enabled: 1
+    path: Assets/Scenes/SelectedQuestions.unity
+    guid: 3e9fe07d250014f42be185f6de1b215a
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: bc0f441ad618192418ef64a59507333c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

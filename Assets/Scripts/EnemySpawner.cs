@@ -7,6 +7,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
 
+    //class for the enemy containing the enemy prefab and its cost
     [Serializable]
     public class Enemy
     {
@@ -14,15 +15,18 @@ public class EnemySpawner : MonoBehaviour
         public int cost;
     }
 
+    //lists for the enemies to be stored in
     public List<Enemy> enemies = new List<Enemy>();
     public List<GameObject> spawnableEnemies = new List<GameObject>();
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    //wave information
     public int currentWave;
     public int waveValue;
     public float spawnDelay = 2f;
     public float waveDelay = 10f;
 
+    //spawn locations
     public Transform spawnLocation1;
     public Transform spawnLocation2;
     public Transform spawnLocation3;
@@ -39,13 +43,17 @@ public class EnemySpawner : MonoBehaviour
 
     public IEnumerator SpawnWave()
     {
+        //stored the spawn points in a list
         Transform[] spawnPoint = { spawnLocation1, spawnLocation2, spawnLocation3, spawnLocation4 };
+        //loops for the length of the spawnable enemies
         for(int i = 0; i < spawnableEnemies.Count; i++)
         {
+            //spawns the enemies at a random one of the location
             Transform randomSpawn = spawnPoint[rnd.Next(0, spawnPoint.Length)];
             GameObject newEnemy = Instantiate(spawnableEnemies[i], randomSpawn.position, randomSpawn.rotation);
             spawnedEnemies.Add(newEnemy); 
 
+            //waits before spawning the next enemy
             yield return new WaitForSeconds(spawnDelay);
         }
 
@@ -53,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (spawnableEnemies.Count <= 0)
         {
+            //creates next wave
             yield return new WaitForSeconds(waveDelay);
             currentWave++;
             GenerateWave();
@@ -61,6 +70,7 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
+    //creates the wave
     public void GenerateWave()
     {
         waveValue = currentWave * 8;
@@ -75,6 +85,7 @@ public class EnemySpawner : MonoBehaviour
 
         List<GameObject> generatedEnemies = new List<GameObject>();
         System.Random rnd = new System.Random();
+        //randomly selects enemies until all the waves value is spent
         while (waveValue > 0)
         {
             int randomEnemy = rnd.Next(0, enemies.Count);

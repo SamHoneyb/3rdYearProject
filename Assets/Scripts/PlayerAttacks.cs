@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour
 {
+    //sets variables
     public Animator Animator;
     public Transform AtkPoint;
     public Transform RangedPoint;
@@ -24,18 +25,14 @@ public class PlayerAttacks : MonoBehaviour
         Shop = FindObjectOfType<Shop>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //sets the attacking animation to run
     public void DefaultAttack()
     {
         Animator.SetBool("Attacking", true);
         
     }
 
+    //sets the attacking animation to run and takes one of the heavy owned when used
     public void HeavyAttack()
     {
 
@@ -47,6 +44,7 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
+    //uses the health move and takes one from the users total
     public void HealthMove()
     {
         if (Shop.healthOwned > 0)
@@ -57,6 +55,8 @@ public class PlayerAttacks : MonoBehaviour
         
         
     }
+
+    //uses the freeze move
     public void FreezeMove()
     {
 
@@ -69,10 +69,12 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
+    //uses the quake move
     public void EarthQuakeMove()
     {
         if (Shop.quakeOwned > 0)
         {
+            //deals 3 damage to all spawned enmies
             foreach (GameObject newEnemy in EnemySpawner.spawnedEnemies)
             {
                 if (newEnemy != null)
@@ -87,6 +89,7 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
+    //uses the range move
     public void RangedMove()
     {
 
@@ -100,8 +103,7 @@ public class PlayerAttacks : MonoBehaviour
 
     }
 
-
-
+    //deals damage to the enemy closest to the player
     void DealDefaultDamage()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(AtkPoint.position, range, enemyLayer);
@@ -113,6 +115,7 @@ public class PlayerAttacks : MonoBehaviour
         }
     }
 
+    //deals heavy damage to the enemy closest to the player
     void DealHeavyDamage()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(AtkPoint.position, range, enemyLayer);
@@ -124,6 +127,7 @@ public class PlayerAttacks : MonoBehaviour
         }
     }
 
+    //freezes enemies for a period of time
     IEnumerator FreezeMobs (float seconds)
     {
         foreach(GameObject newEnemy in EnemySpawner.spawnedEnemies)
@@ -145,12 +149,14 @@ public class PlayerAttacks : MonoBehaviour
         }
 
     }
+    //sets the direction of the attack and then fires the bullet 
     public void fireAttack()
     {
         RangedAttack rangedMove = Instantiate(rangedAttackPrefab, RangedPoint.position, Quaternion.identity).GetComponent<RangedAttack>();
         rangedMove.attackDirection = attackDirection;
     }
 
+    //stores the shoot direction
     public void shootDirection()
     {
         float Horizontal = Input.GetAxisRaw("Horizontal");
@@ -167,9 +173,7 @@ public class PlayerAttacks : MonoBehaviour
         }
     }
 
-
-    
-
+    //stops animations
     public void FinishAttack()
     {
         Animator.SetBool("Attacking", false);
